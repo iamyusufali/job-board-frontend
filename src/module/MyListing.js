@@ -1,29 +1,21 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import JobCard from "../components/JobCard";
 import { Flex } from "@chakra-ui/react";
-import { useAuthContext } from "../context/AuthContext";
+
+import JobCard from "../components/JobCard";
+import { DELETE, GetPublic } from "../utils/apiRequester";
 
 const MyListing = () => {
-  const { authData } = useAuthContext();
   const [jobList, setJobList] = useState([]);
 
   const deleteJobHandler = async jobId => {
-    try {
-      await axios.delete(`${process.env.API_BASE_URL}/jobs/${jobId}`, {
-        headers: {
-          Authorization: `Bearer ${authData.info.jwt}`,
-        },
-      });
-
-      setJobList(prevList => prevList.filter(job => job.id !== jobId));
-    } catch (error) {}
+    const { result } = await DELETE(`jobs/${jobId}`);
+    result && setJobList(prevList => prevList.filter(job => job.id !== jobId));
   };
 
   useEffect(() => {
     (async function () {
-      const { data } = await axios.get(`${process.env.API_BASE_URL}/jobs`);
-      setJobList(data);
+      const { result } = await GetPublic("jobs");
+      result && setJobList(result);
     })();
   }, []);
 

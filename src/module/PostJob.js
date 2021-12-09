@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import { navigate } from "gatsby";
 import {
   Box,
@@ -14,11 +13,9 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../context/AuthContext";
+import { Post } from "../utils/apiRequester";
 
 const PostJob = () => {
-  const { authData } = useAuthContext();
-
   const {
     register,
     handleSubmit,
@@ -27,15 +24,8 @@ const PostJob = () => {
   } = useForm();
 
   const submitHandler = async formData => {
-    try {
-      await axios.post(`${process.env.API_BASE_URL}/jobs`, formData, {
-        headers: {
-          Authorization: `Bearer ${authData.info.jwt}`,
-        },
-      });
-
-      navigate("/app/my-jobs");
-    } catch (error) {}
+    const { result } = await Post("jobs", formData);
+    result && navigate("/app/my-jobs");
   };
 
   return (

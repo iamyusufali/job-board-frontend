@@ -4,6 +4,7 @@ import axios from "axios";
 import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../context/AuthContext";
+import { RequestBase } from "../utils/apiRequester";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
@@ -14,6 +15,8 @@ const SignIn = () => {
       const { data } = await axios.post(`${process.env.API_BASE_URL}/auth/local`, formData);
 
       document.cookie = `auth-token=${data.jwt}`;
+      RequestBase.changeToken(data.jwt);
+
       setAuthData({ isLoggedIn: true, info: data });
       navigate("/app/my-jobs");
     } catch (error) {}

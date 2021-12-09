@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box, Heading } from "@chakra-ui/react";
 
 import JobCard from "../components/JobCard";
 import { DELETE, GetPublic } from "../utils/apiRequester";
@@ -20,11 +20,16 @@ const MyListing = () => {
   }, []);
 
   return (
-    <Flex flexDirection="column" alignItems="center" py={10}>
-      {jobList.map((job, index) => (
-        <JobCard showDelete={true} job={job} key={index} handleDelete={deleteJobHandler} />
-      ))}
-    </Flex>
+    <Box mt={10}>
+      <Heading mb={5} textAlign="center">
+        My Jobs
+      </Heading>
+      <Flex flexDirection="column" alignItems="center" py={10}>
+        {jobList.map((job, index) => (
+          <JobCard showDelete={true} job={job} key={index} handleDelete={deleteJobHandler} />
+        ))}
+      </Flex>
+    </Box>
   );
 };
 

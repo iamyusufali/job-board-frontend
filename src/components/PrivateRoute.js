@@ -5,7 +5,7 @@ import { useAuthContext } from "../context/AuthContext";
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
   const { authData } = useAuthContext();
 
-  if (!authData.isLoggedIn && location.pathname !== `/app/login`) {
+  if (!authData.isLoggedIn && location.pathname !== `/app/sign-in`) {
     navigate("/app/sign-in");
     return null;
   }

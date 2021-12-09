@@ -41,11 +41,11 @@ export const Post = async (path, json) => {
  * GET Request Handler
  *
  ***/
-export const Get = async (path, json) => {
+export const Get = async path => {
   const response = {};
 
   try {
-    const { data } = await axios.get(`${process.env.API_BASE_URL}/${path}`, json, {
+    const { data } = await axios.get(`${process.env.API_BASE_URL}/${path}`, {
       headers: {
         Authorization: `Bearer ${RequestBase.token}`,
       },

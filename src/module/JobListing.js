@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import JobCard from "../components/JobCard";
 import { Flex } from "@chakra-ui/react";
+import { Get } from "../utils/apiRequester";
 
 const JobListing = () => {
   const [jobList, setJobList] = useState([]);
 
   useEffect(() => {
     (async function () {
-      const { data } = await axios.get(`${process.env.API_BASE_URL}/jobs`);
-      setJobList(data);
+      const { result } = await Get("jobs");
+      result && setJobList(result);
     })();
   }, []);
 

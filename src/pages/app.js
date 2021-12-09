@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { navigate } from "gatsby";
 import { Router } from "@reach/router";
+import { navigate } from "gatsby";
 
 import Layout from "../components/Layout";
 import SignIn from "../components/SignIn";
@@ -12,18 +12,11 @@ import PostJob from "../module/PostJob";
 import { useAuthContext } from "../context/AuthContext";
 
 const App = () => {
-  const { setAuthData, authData } = useAuthContext();
+  const { authData } = useAuthContext();
 
   useEffect(() => {
-    const token = document.cookie.match(`(^|;)\\s*auth-token\\s*=\\s*([^;]+)`)?.pop() || "";
-
-    if (token) {
-      setAuthData({ isLoggedIn: true, info: {} });
-      navigate("/app/job-listing");
-    }
-
-    // !token && navigate("/app/sign-in");
-  }, []);
+    authData.isLoggedIn && navigate("/app/my-jobs");
+  }, [authData.isLoggedIn]);
 
   return (
     <Layout>

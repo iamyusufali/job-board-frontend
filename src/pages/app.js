@@ -12,13 +12,13 @@ import PostJob from "../module/PostJob";
 import { useAuthContext } from "../context/AuthContext";
 
 const App = () => {
-  const { setIsLoggedIn } = useAuthContext();
+  const { setAuthData, authData } = useAuthContext();
 
   useEffect(() => {
     const token = document.cookie.match(`(^|;)\\s*auth-token\\s*=\\s*([^;]+)`)?.pop() || "";
 
     if (token) {
-      setIsLoggedIn(true);
+      setAuthData({ isLoggedIn: true, info: {} });
       navigate("/app/job-listing");
     }
 

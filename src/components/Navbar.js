@@ -4,10 +4,10 @@ import { Flex, Center, Text } from "@chakra-ui/react";
 import { useAuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
-  const { isLoggedIn, setIsLoggedIn } = useAuthContext();
+  const { authData, setAuthData } = useAuthContext();
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    setAuthData({ isLoggedIn: false, info: null });
     document.cookie = `auth-token=;path=/app;domain=;expires=Mon, 19 March 1998 00:00:00 GMT;`;
   };
 
@@ -16,7 +16,7 @@ const Navbar = () => {
       <Center cursor="pointer" color="white">
         <Link to="/">Job Board</Link>
       </Center>
-      {isLoggedIn && (
+      {authData.isLoggedIn && (
         <>
           <Flex justifyContent="end" cursor="pointer">
             <Center marginRight="5" color="white">

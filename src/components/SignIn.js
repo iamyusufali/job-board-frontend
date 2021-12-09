@@ -7,15 +7,15 @@ import { useAuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
-  const { setIsLoggedIn } = useAuthContext();
+  const { setAuthData } = useAuthContext();
 
   const submitHandler = async formData => {
     try {
       const { data } = await axios.post(`${process.env.API_BASE_URL}/auth/local`, formData);
 
       document.cookie = `auth-token=${data.jwt}`;
-      setIsLoggedIn(true);
-      navigate("/app/job-listing");
+      setAuthData({ isLoggedIn: true, info: data });
+      navigate("/app/my-jobs");
     } catch (error) {}
   };
 

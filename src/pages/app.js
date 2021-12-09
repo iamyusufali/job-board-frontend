@@ -9,7 +9,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import { AuthContext } from "../context/AuthContext";
 
 const App = () => {
-  const [user, setUser] = useState({ name: "Yusuf" });
+  const [user, setUser] = useState();
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

@@ -27,7 +27,7 @@ const SignIn = () => {
 
       document.cookie = `auth-token=${data.jwt}`;
       setUser(data.user);
-      navigate("/app/job-lisiting");
+      navigate("/app/job-listing");
     } catch (error) {}
   };
 

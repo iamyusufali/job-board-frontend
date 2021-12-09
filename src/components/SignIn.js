@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import axios from "axios";
 import {
   Box,
@@ -12,18 +12,22 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
+  const { setUser } = useAuthContext();
 
   const submitHandler = async formData => {
     try {
-      const result = await axios.post(
+      const { data } = await axios.post(
         `${process.env.API_BASE_URL}/auth/local`,
         formData
       );
 
-      document.cookie = `auth-token=${result.data.jwt}`;
+      document.cookie = `auth-token=${data.jwt}`;
+      setUser(data.user);
+      navigate("/app/job-lisiting");
     } catch (error) {}
   };
 

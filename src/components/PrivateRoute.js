@@ -1,8 +1,11 @@
 import React from "react";
 import { navigate } from "gatsby";
+import { useAuthContext } from "../context/AuthContext";
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-  if (!false && location.pathname !== `/app/login`) {
+  const { user } = useAuthContext();
+
+  if (!user && location.pathname !== `/app/login`) {
     navigate("/app/sign-in");
     return null;
   }

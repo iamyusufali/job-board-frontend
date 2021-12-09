@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import {
   Box,
   FormControl,
@@ -10,14 +10,30 @@ import {
   Heading,
   Text,
   Flex,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
+  const toast = useToast();
 
   const submitHandler = async formData => {
-    console.log(formData);
+    try {
+      await axios.post(
+        `${process.env.API_BASE_URL}/auth/local/register`,
+        formData
+      );
+
+      navigate("/app/sign-in");
+      toast({
+        title: "Account created.",
+        description: "We've created an account for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+    } catch (error) {}
   };
 
   return (
@@ -27,6 +43,10 @@ const SignUp = () => {
       </Heading>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Box w="20rem" mx="auto">
+          <FormControl id="username">
+            <FormLabel>Username</FormLabel>
+            <Input {...register("username", { required: true })} type="text" />
+          </FormControl>
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
             <Input {...register("email", { required: true })} type="email" />

@@ -1,27 +1,32 @@
 import React from "react";
-import axios from "axios";
 import { Link, navigate } from "gatsby";
 import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { PostPublic } from "../utils/apiRequester";
+import { toastConfig } from "../constants";
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm();
   const toast = useToast();
 
   const submitHandler = async formData => {
-    try {
-      await axios.post(`${process.env.API_BASE_URL}/auth/local/register`, formData);
+    const { error } = await PostPublic("auth/local/register", formData);
 
-      navigate("/app/sign-in");
-      toast({
-        title: "Account created.",
-        description: "We've created an account for you.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-        position: "top-right",
+    if (error) {
+      return toast({
+        ...toastConfig,
+        title: "Unable to create Account",
+        status: "error",
       });
-    } catch (error) {}
+    }
+
+    navigate("/app/sign-in");
+    toast({
+      ...toastConfig,
+      title: "Account created.",
+      description: "We've created an account for you.",
+      status: "success",
+    });
   };
 
   return (

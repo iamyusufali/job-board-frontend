@@ -38,6 +38,25 @@ export const Post = async (path, json) => {
 
 /***
  *
+ * POST Request Handler
+ *
+ ***/
+export const PostPublic = async (path, json) => {
+  const response = {};
+
+  try {
+    const { data } = await axios.post(`${process.env.API_BASE_URL}/${path}`, json);
+
+    response.result = data;
+  } catch (error) {
+    response.error = error;
+  }
+
+  return response;
+};
+
+/***
+ *
  * GET Request Handler
  *
  ***/

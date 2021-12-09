@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { navigate } from "gatsby";
 import { Router } from "@reach/router";
 
 import Layout from "../components/Layout";
@@ -6,21 +7,31 @@ import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
 import JobListing from "../module/JobListing";
 import PrivateRoute from "../components/PrivateRoute";
-import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
 const App = () => {
-  const [user, setUser] = useState();
+  const { setIsLoggedIn } = useAuthContext();
+
+  useEffect(() => {
+    const token =
+      document.cookie.match(`(^|;)\\s*auth-token\\s*=\\s*([^;]+)`)?.pop() || "";
+
+    if (token) {
+      setIsLoggedIn(true);
+      navigate("/app/job-listing");
+    }
+
+    !token && navigate("/app/sign-in");
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
-      <Layout>
-        <Router basepath="/app">
-          <SignIn path="/sign-in" />
-          <SignUp path="/sign-up" />
-          <PrivateRoute path="/job-listing" component={JobListing} />
-        </Router>
-      </Layout>
-    </AuthContext.Provider>
+    <Layout>
+      <Router basepath="/app">
+        <SignIn path="/sign-in" />
+        <SignUp path="/sign-up" />
+        <PrivateRoute path="/job-listing" component={JobListing} />
+      </Router>
+    </Layout>
   );
 };
 

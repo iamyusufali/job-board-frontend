@@ -16,7 +16,7 @@ import { useAuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
-  const { setUser } = useAuthContext();
+  const { setIsLoggedIn } = useAuthContext();
 
   const submitHandler = async formData => {
     try {
@@ -26,7 +26,7 @@ const SignIn = () => {
       );
 
       document.cookie = `auth-token=${data.jwt}`;
-      setUser(data.user);
+      setIsLoggedIn(true);
       navigate("/app/job-listing");
     } catch (error) {}
   };

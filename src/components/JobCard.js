@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, GridItem, Heading, Text, SimpleGrid, Box, Button, Flex } from "@chakra-ui/react";
 
-const JobCard = ({ job, showDelete = false }) => {
+const JobCard = ({ job, handleDelete, showDelete = false }) => {
   return (
     <Grid
       h="250px"
@@ -33,7 +33,7 @@ const JobCard = ({ job, showDelete = false }) => {
       {showDelete && (
         <GridItem colSpan={1} p={5}>
           <Flex justifyContent="end">
-            <Button bg="red.300" _hover={{ bg: "red.400" }}>
+            <Button bg="red.300" _hover={{ bg: "red.400" }} onClick={() => handleDelete(job.id)}>
               Delete
             </Button>
           </Flex>

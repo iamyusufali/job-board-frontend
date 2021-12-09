@@ -1,19 +1,39 @@
 import React from "react";
 import axios from "axios";
 import { navigate } from "gatsby";
-import { Box, FormControl, FormLabel, Input, Heading, Textarea, Button } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Heading,
+  Textarea,
+  Button,
+  RadioGroup,
+  Stack,
+  Radio,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useAuthContext } from "../context/AuthContext";
 
 const PostJob = () => {
+  const { authData } = useAuthContext();
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const submitHandler = async formData => {
     try {
-      await axios.post(`${process.env.API_BASE_URL}/jobs`, formData);
+      await axios.post(`${process.env.API_BASE_URL}/jobs`, formData, {
+        headers: {
+          Authorization: `Bearer ${authData.info.jwt}`,
+        },
+      });
+
       navigate("/app/my-jobs");
     } catch (error) {}
   };
@@ -35,14 +55,19 @@ const PostJob = () => {
             <Input type="text" {...register("location", { required: true })} />
           </FormControl>
 
-          <FormControl id="full_time" mb={5} isInvalid={errors?.full_time}>
-            <FormLabel>Full Time</FormLabel>
-            <Input type="text" {...register("full_time", { required: true })} />
+          <FormControl id="job_type" mb={5} isInvalid={errors?.job_type}>
+            <FormLabel>Job Type</FormLabel>
+            <RadioGroup onChange={value => setValue("job_type", value)}>
+              <Stack direction="row">
+                <Radio value="Full Time">Full Time</Radio>
+                <Radio value="Part Time">Part Time</Radio>
+              </Stack>
+            </RadioGroup>
           </FormControl>
 
-          <FormControl id="email" mb={5} isInvalid={errors?.email}>
+          <FormControl id="contact_email" mb={5} isInvalid={errors?.contact_email}>
             <FormLabel>Contact Email</FormLabel>
-            <Input type="email" {...register("email", { required: true })} />
+            <Input type="email" {...register("contact_email", { required: true })} />
           </FormControl>
 
           <FormControl id="description" mb={5} isInvalid={errors?.description}>

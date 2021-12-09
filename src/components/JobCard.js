@@ -22,7 +22,7 @@ const JobCard = ({ job, showDelete = false }) => {
               <Text>Location: {job.location}</Text>
             </Box>
             <Box>
-              <Text>Job Type: {job.full_time ? "Full Time" : "Part Time"}</Text>
+              <Text>Job Type: {job.job_type}</Text>
             </Box>
             <Box>
               <Text>Contact Email: {job.contact_email}</Text>

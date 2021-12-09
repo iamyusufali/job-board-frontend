@@ -21,7 +21,7 @@ const App = () => {
       navigate("/app/job-listing");
     }
 
-    !token && navigate("/app/sign-in");
+    // !token && navigate("/app/sign-in");
   }, []);
 
   return (
@@ -29,7 +29,7 @@ const App = () => {
       <Router basepath="/app">
         <SignIn path="/sign-in" />
         <SignUp path="/sign-up" />
-        <PrivateRoute path="/job-listing" component={JobListing} />
+        <JobListing path="/job-listing" />
       </Router>
     </Layout>
   );

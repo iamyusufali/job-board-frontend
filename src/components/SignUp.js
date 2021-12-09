@@ -32,6 +32,7 @@ const SignUp = () => {
         status: "success",
         duration: 9000,
         isClosable: true,
+        position: "top-right",
       });
     } catch (error) {}
   };

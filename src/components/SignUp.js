@@ -1,17 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Link, navigate } from "gatsby";
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Heading,
-  Text,
-  Flex,
-  useToast,
-} from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
 const SignUp = () => {
@@ -20,10 +10,7 @@ const SignUp = () => {
 
   const submitHandler = async formData => {
     try {
-      await axios.post(
-        `${process.env.API_BASE_URL}/auth/local/register`,
-        formData
-      );
+      await axios.post(`${process.env.API_BASE_URL}/auth/local/register`, formData);
 
       navigate("/app/sign-in");
       toast({
@@ -54,17 +41,11 @@ const SignUp = () => {
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input
-              {...register("password", { required: true })}
-              type="password"
-            />
+            <Input {...register("password", { required: true })} type="password" />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password Confirm</FormLabel>
-            <Input
-              {...register("password_confirm", { required: true })}
-              type="password"
-            />
+            <Input {...register("password_confirm", { required: true })} type="password" />
           </FormControl>
           <Button mt={4} w="100%" colorScheme="teal" type="submit">
             Sign Up

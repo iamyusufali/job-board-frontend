@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    document.cookie = `auth-token=;path=/app;domain=;expires=Mon, 19 Jan 1998 00:00:00 GMT;`;
+    document.cookie = `auth-token=;path=/app;domain=;expires=Mon, 19 March 1998 00:00:00 GMT;`;
   };
 
   return (

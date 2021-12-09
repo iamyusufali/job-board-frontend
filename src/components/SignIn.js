@@ -1,16 +1,7 @@
 import React from "react";
 import { Link, navigate } from "gatsby";
 import axios from "axios";
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
-  Heading,
-  Text,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -20,10 +11,7 @@ const SignIn = () => {
 
   const submitHandler = async formData => {
     try {
-      const { data } = await axios.post(
-        `${process.env.API_BASE_URL}/auth/local`,
-        formData
-      );
+      const { data } = await axios.post(`${process.env.API_BASE_URL}/auth/local`, formData);
 
       document.cookie = `auth-token=${data.jwt}`;
       setIsLoggedIn(true);
@@ -40,25 +28,13 @@ const SignIn = () => {
         <Box w="20rem" mx="auto">
           <FormControl id="email">
             <FormLabel>Email address</FormLabel>
-            <Input
-              {...register("identifier", { required: true })}
-              type="email"
-            />
+            <Input {...register("identifier", { required: true })} type="email" />
           </FormControl>
           <FormControl id="password">
             <FormLabel>Password</FormLabel>
-            <Input
-              {...register("password", { required: true })}
-              type="password"
-            />
+            <Input {...register("password", { required: true })} type="password" />
           </FormControl>
-          <Button
-            mt={4}
-            w="100%"
-            colorScheme="teal"
-            type="submit"
-            onClick={handleSubmit}
-          >
+          <Button mt={4} w="100%" colorScheme="teal" type="submit" onClick={handleSubmit}>
             Sign In
           </Button>
           <Flex flexDirection="column" alignItems="center" mt={5}>

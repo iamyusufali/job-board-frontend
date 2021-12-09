@@ -13,7 +13,7 @@ export default function Home() {
           <Button colorScheme="blue">View Job Listing</Button>
         </Link>
         <Flex mt={5}>
-          <Link to="/app/sign-up">
+          <Link to="/app/sign-in">
             <Button colorScheme="blue" mr={2}>
               Sign In
             </Button>

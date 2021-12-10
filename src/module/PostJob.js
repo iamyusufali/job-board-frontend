@@ -14,8 +14,10 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { Post } from "../utils/apiRequester";
+import { useAuthContext } from "../context/AuthContext";
 
 const PostJob = () => {
+  const { authData } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -24,6 +26,8 @@ const PostJob = () => {
   } = useForm();
 
   const submitHandler = async formData => {
+    formData.user = authData.user;
+
     const { result } = await Post("jobs", formData);
     result && navigate("/app/my-jobs");
   };

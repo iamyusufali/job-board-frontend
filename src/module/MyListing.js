@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Flex, Box, Heading } from "@chakra-ui/react";
 
 import JobCard from "../components/JobCard";
-import { DELETE, GetPublic } from "../utils/apiRequester";
+import { DELETE, Get } from "../utils/apiRequester";
 
 const MyListing = () => {
   const [jobList, setJobList] = useState([]);
@@ -14,7 +14,7 @@ const MyListing = () => {
 
   useEffect(() => {
     (async function () {
-      const { result } = await GetPublic("jobs");
+      const { result } = await Get("jobs/my");
       result && setJobList(result);
     })();
   }, []);

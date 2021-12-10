@@ -11,7 +11,7 @@ const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState({
     isLoggedIn: false,
-    info: null,
+    user: null,
   });
 
   useEffect(() => {
@@ -22,8 +22,8 @@ const AuthProvider = ({ children }) => {
     // Check if user is logged in or not based on jwt token
     (async function () {
       const { result, error } = await Get("users/me");
-      result && setAuthData({ isLoggedIn: true, info: result });
-      error && setAuthData({ isLoggedIn: false, info: null });
+      result && setAuthData({ isLoggedIn: true, user: result });
+      error && setAuthData({ isLoggedIn: false, user: null });
     })();
   }, []);
 

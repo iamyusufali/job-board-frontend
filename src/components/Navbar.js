@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
-import { Flex, Center, Text } from "@chakra-ui/react";
+import { Flex, Center, Heading, Text } from "@chakra-ui/react";
 import { useAuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -12,9 +12,11 @@ const Navbar = () => {
   };
 
   return (
-    <Flex justifyContent="space-between" bg="teal" height="60px" p="4">
+    <Flex justifyContent="space-between" bg="teal" height="70px" p="4">
       <Center cursor="pointer" color="white">
-        <Link to="/">Job Board</Link>
+        <Link to="/">
+          <Heading fontSize="22px">Job Board</Heading>
+        </Link>
       </Center>
       {authData.isLoggedIn && (
         <>
@@ -29,7 +31,7 @@ const Navbar = () => {
               <Link to="/app/job-listing">All Jobs</Link>
             </Center>
           </Flex>
-          <Flex>
+          <Flex alignItems="center">
             <Center color="white" cursor="pointer" onClick={handleLogout}>
               <Text>Logout</Text>
             </Center>

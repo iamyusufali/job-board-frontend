@@ -13,7 +13,7 @@ import { Flex, Box, Button } from "@chakra-ui/react";
  */
 const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const pages = Math.floor(dataCount / dataLimit);
+  const pages = Math.ceil(dataCount / dataLimit);
 
   function goToNextPage() {
     setCurrentPage(page => {
@@ -33,7 +33,7 @@ const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }
 
   function changePage(event) {
     const pageNumber = Number(event.target.textContent);
-
+    fetchData((pageNumber - 1) * dataLimit, dataLimit);
     setCurrentPage(pageNumber);
   }
 
@@ -46,19 +46,38 @@ const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }
     <Flex flexDirection="column" alignItems="center" py={10}>
       {data.map((data, idx) => render(data, idx))}
 
-      {pages > 0 ? (
-        <Flex>
-          <Button onClick={goToPreviousPage} disabled={currentPage === 1}>
+      {dataCount > dataLimit ? (
+        <Flex mt={5}>
+          <Button
+            onClick={goToPreviousPage}
+            bg="gray.200"
+            _hover={{ bg: "gray.300" }}
+            disabled={currentPage === 1}
+            mr={2}
+          >
             prev
           </Button>
 
           {getPaginationGroup().map((item, index) => (
-            <Button key={index} onClick={changePage} bg={currentPage === item ? "green.200" : "gray.300"}>
+            <Button
+              key={index}
+              onClick={changePage}
+              bg={currentPage === item ? "green.300" : "gray.200"}
+              color={currentPage === item ? "white" : "gray.800"}
+              borderRadius="50%"
+              outline="none"
+            >
               <span>{item}</span>
             </Button>
           ))}
 
-          <Button onClick={goToNextPage} disabled={currentPage === pages}>
+          <Button
+            onClick={goToNextPage}
+            bg="gray.200"
+            _hover={{ bg: "gray.300" }}
+            disabled={currentPage === pages}
+            ml={2}
+          >
             next
           </Button>
         </Flex>

@@ -1,13 +1,14 @@
-import React from "react"
-import Navbar from "./Navbar"
+import React from "react";
+import Navbar from "./Navbar";
+import { Box } from "@chakra-ui/react";
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <Box>
       <Navbar />
-      <div>{children}</div>
-    </div>
-  )
-}
+      <Box>{children}</Box>
+    </Box>
+  );
+};
 
-export default Layout
+export default Layout;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Button, Stack } from "@chakra-ui/react";
 
 /**
  *
@@ -44,16 +44,20 @@ const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }
 
   return (
     <Flex flexDirection="column" alignItems="center" py={10}>
-      {data.map((data, idx) => render(data, idx))}
+      <Stack alignItems="center" w="100%" minH={"40rem"}>
+        {data.map((data, idx) => render(data, idx))}
+      </Stack>
 
       {dataCount > dataLimit ? (
         <Flex mt={5}>
           <Button
             onClick={goToPreviousPage}
-            bg="gray.200"
-            _hover={{ bg: "gray.300" }}
+            bg="gray.600"
+            _hover={{ bg: "gray.600" }}
+            color="white"
             disabled={currentPage === 1}
             mr={2}
+            rounded="full"
           >
             prev
           </Button>
@@ -62,7 +66,7 @@ const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }
             <Button
               key={index}
               onClick={changePage}
-              bg={currentPage === item ? "green.300" : "gray.200"}
+              bg={currentPage === item ? "green.500" : "gray.200"}
               color={currentPage === item ? "white" : "gray.800"}
               borderRadius="50%"
               outline="none"
@@ -73,10 +77,12 @@ const Pagination = ({ data, dataCount, render, pageLimit, dataLimit, fetchData }
 
           <Button
             onClick={goToNextPage}
-            bg="gray.200"
-            _hover={{ bg: "gray.300" }}
+            bg="gray.600"
+            _hover={{ bg: "gray.600" }}
+            color="white"
             disabled={currentPage === pages}
             ml={2}
+            rounded="full"
           >
             next
           </Button>

@@ -80,7 +80,7 @@ const PostJob = () => {
 
             <FormControl id="description" mb={5} isInvalid={errors?.description}>
               <FormLabel>Description</FormLabel>
-              <Textarea {...register("description", { required: true })} />
+              <Textarea minLength={120} {...register("description", { required: true })} />
             </FormControl>
 
             <Button w="100%" bg="green.500" color="white" _hover={{ bg: "green.600" }} type="submit">

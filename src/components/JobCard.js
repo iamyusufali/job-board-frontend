@@ -2,6 +2,11 @@ import React from "react";
 import { Box, Center, Text, Stack, Button, useColorModeValue, Flex } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 
+/***
+ *
+ * Job Card Component
+ *
+ ***/
 const JobCard = ({ job, handleDelete, showDelete = false }) => {
   return (
     <Center py={6}>

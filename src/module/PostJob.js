@@ -20,6 +20,11 @@ import { Post } from "../utils/apiRequester";
 import { useAuthContext } from "../context/AuthContext";
 import { toastConfig } from "../constants";
 
+/***
+ *
+ * Post Job Component
+ *
+ ***/
 const PostJob = () => {
   const { authData } = useAuthContext();
   const {

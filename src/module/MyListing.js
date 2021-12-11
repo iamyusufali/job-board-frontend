@@ -6,6 +6,11 @@ import JobCard from "../components/JobCard";
 import { DELETE, Get } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 
+/***
+ *
+ * My Job Listing
+ *
+ ***/
 const MyListing = () => {
   const [jobList, setJobList] = useState([]);
   const toast = useToast();

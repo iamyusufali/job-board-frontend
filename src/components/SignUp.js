@@ -19,6 +19,11 @@ import { PostPublic } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 import { useAuthContext } from "../context/AuthContext";
 
+/***
+ *
+ * Sign up Component
+ *
+ ***/
 const SignUp = () => {
   const { authData } = useAuthContext();
   const {

@@ -4,6 +4,11 @@ import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
 import { GetPublic } from "../utils/apiRequester";
 
+/***
+ *
+ * Job Listing
+ *
+ ***/
 const JobListing = () => {
   const [jobList, setJobList] = useState([]);
   const [totalJobs, setTotalJobs] = useState(0);

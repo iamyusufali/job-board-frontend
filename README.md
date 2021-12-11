@@ -22,7 +22,6 @@ npm run install
 npm run develop
 ```
 
-#### Application Demo Video
 
-https://user-images.githubusercontent.com/56069580/145674687-9bf1fe5d-1431-4c0b-9787-fd3a64efef40.mp4
+
 

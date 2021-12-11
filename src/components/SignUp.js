@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, navigate } from "gatsby";
 import {
   Box,
@@ -17,8 +17,10 @@ import {
 import { useForm } from "react-hook-form";
 import { PostPublic } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
+import { useAuthContext } from "../context/AuthContext";
 
 const SignUp = () => {
+  const { authData } = useAuthContext();
   const {
     register,
     handleSubmit,
@@ -47,13 +49,17 @@ const SignUp = () => {
     });
   };
 
+  useEffect(() => {
+    authData.isLoggedIn && navigate("/app/my-jobs");
+  }, []);
+
   return (
     <Flex align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign up</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
+            to enjoy all of our cool <Text color={"blue.400"}>features</Text> ✌️
           </Text>
         </Stack>
         <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8} minW="400px">

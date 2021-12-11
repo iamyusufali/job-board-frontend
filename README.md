@@ -2,7 +2,7 @@
 
 ## Setup to run application
 
-Make sure yout node version 14+.
+Make sure you have node version 14 or higher - recommended version is 16.13.1
 
 #### Configure environment variables
 

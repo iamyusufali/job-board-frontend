@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, navigate } from "gatsby";
 import {
   Box,
@@ -29,7 +29,7 @@ const SignIn = () => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm();
-  const { setAuthData } = useAuthContext();
+  const { authData, setAuthData } = useAuthContext();
   const toast = useToast();
 
   const submitHandler = async formData => {
@@ -49,14 +49,15 @@ const SignIn = () => {
     navigate("/app/my-jobs");
   };
 
+  useEffect(() => {
+    authData.isLoggedIn && navigate("/app/my-jobs");
+  }, []);
+
   return (
     <Flex align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
-          </Text>
         </Stack>
         <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>
           <form onSubmit={handleSubmit(submitHandler)}>

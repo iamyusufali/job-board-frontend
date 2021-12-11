@@ -1,25 +1,25 @@
 import React from "react";
 import { Link, navigate } from "gatsby";
-import axios from "axios";
 import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../context/AuthContext";
-import { RequestBase } from "../utils/apiRequester";
+import { PostPublic, RequestBase } from "../utils/apiRequester";
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
   const { setAuthData } = useAuthContext();
 
   const submitHandler = async formData => {
-    try {
-      const { data } = await axios.post(`${process.env.API_BASE_URL}/auth/local`, formData);
+    const { result, error } = await PostPublic("auth/local", formData);
 
-      document.cookie = `auth-token=${data.jwt}`;
-      RequestBase.changeToken(data.jwt);
-
-      setAuthData({ isLoggedIn: true, info: data });
+    if (result) {
+      document.cookie = `auth-token=${result.jwt}`;
+      RequestBase.changeToken(result.jwt);
+      setAuthData({ isLoggedIn: true, user: result.user });
       navigate("/app/my-jobs");
-    } catch (error) {}
+    }
+
+    error && console.error("Some error in login.");
   };
 
   return (

@@ -58,9 +58,6 @@ const SignUp = () => {
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign up</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
-            to enjoy all of our cool <Text color={"blue.400"}>features</Text> ✌️
-          </Text>
         </Stack>
         <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8} minW="400px">
           <form onSubmit={handleSubmit(submitHandler)}>

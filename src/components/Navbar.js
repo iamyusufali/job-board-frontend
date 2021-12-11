@@ -19,7 +19,7 @@ const Navbar = () => {
           <Heading fontSize="22px">Job Board</Heading>
         </Link>
       </Center>
-      {authData.isLoggedIn && (
+      {authData.isLoggedIn ? (
         <>
           <Flex justifyContent="end" cursor="pointer" fontSize="1rem">
             <Center marginRight="5" color="white">
@@ -38,6 +38,14 @@ const Navbar = () => {
             </Center>
           </Flex>
         </>
+      ) : (
+        <Center color="white" cursor="pointer" onClick={handleLogout}>
+          <Link to="/app/sign-in">
+            <Button bg="white" color="gray.800">
+              Sign In
+            </Button>
+          </Link>
+        </Center>
       )}
     </Flex>
   );

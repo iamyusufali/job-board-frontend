@@ -9,7 +9,7 @@ const JobListing = () => {
   const [totalJobs, setTotalJobs] = useState(0);
 
   const getJobs = async (start = 0, limit = 2) => {
-    const { result } = await GetPublic(`jobs?_sort=created_at&_start=${start}&_limit=${limit}`);
+    const { result } = await GetPublic(`jobs?_sort=created_at:DESC&_start=${start}&_limit=${limit}`);
     result && setJobList(result);
   };
 

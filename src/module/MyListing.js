@@ -25,7 +25,7 @@ const MyListing = () => {
 
   useEffect(() => {
     (async function () {
-      const { result } = await Get("jobs/my");
+      const { result } = await Get("jobs/my?_sort=created_at:DESC");
 
       result && setJobList(result);
     })();

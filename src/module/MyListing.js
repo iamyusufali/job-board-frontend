@@ -1,20 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Box, Heading } from "@chakra-ui/react";
+import { Flex, Box, Heading, useToast } from "@chakra-ui/react";
 
 import JobCard from "../components/JobCard";
 import { DELETE, Get } from "../utils/apiRequester";
+import { toastConfig } from "../constants";
 
 const MyListing = () => {
   const [jobList, setJobList] = useState([]);
+  const toast = useToast();
 
   const deleteJobHandler = async jobId => {
     const { result } = await DELETE(`jobs/${jobId}`);
-    result && setJobList(prevList => prevList.filter(job => job.id !== jobId));
+
+    if (result) {
+      setJobList(prevList => prevList.filter(job => job.id !== jobId));
+      return toast({
+        ...toastConfig,
+        title: "Job has been deleted.",
+        status: "success",
+      });
+    }
   };
 
   useEffect(() => {
     (async function () {
       const { result } = await Get("jobs/my");
+
       result && setJobList(result);
     })();
   }, []);

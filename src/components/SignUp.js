@@ -1,12 +1,30 @@
 import React from "react";
 import { Link, navigate } from "gatsby";
-import { Box, FormControl, FormLabel, Input, Button, Heading, Text, Flex, useToast } from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+  Heading,
+  Text,
+  Flex,
+  Stack,
+  useColorModeValue,
+  useToast,
+  FormErrorMessage,
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { PostPublic } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isSubmitting },
+  } = useForm({ mode: "onSubmit" });
   const toast = useToast();
 
   const submitHandler = async formData => {
@@ -30,40 +48,68 @@ const SignUp = () => {
   };
 
   return (
-    <Box mt={10}>
-      <Heading mb={5} textAlign="center">
-        Sign Up
-      </Heading>
-      <form onSubmit={handleSubmit(submitHandler)}>
-        <Box w="20rem" mx="auto">
-          <FormControl id="username">
-            <FormLabel>Username</FormLabel>
-            <Input {...register("username", { required: true })} type="text" />
-          </FormControl>
-          <FormControl id="email">
-            <FormLabel>Email address</FormLabel>
-            <Input {...register("email", { required: true })} type="email" />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel>Password</FormLabel>
-            <Input {...register("password", { required: true })} type="password" />
-          </FormControl>
-          <FormControl id="password">
-            <FormLabel>Password Confirm</FormLabel>
-            <Input {...register("password_confirm", { required: true })} type="password" />
-          </FormControl>
-          <Button mt={4} w="100%" colorScheme="teal" type="submit">
-            Sign Up
-          </Button>
-          <Flex flexDirection="column" alignItems="center" mt={5}>
-            <Text mb={2}>Already have an account ?</Text>
-            <Text color="blue">
-              <Link to="/app/sign-in">Sign In</Link>
-            </Text>
-          </Flex>
+    <Flex align={"center"} justify={"center"}>
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Sign up</Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            to enjoy all of our cool <Link color={"blue.400"}>features</Link> ✌️
+          </Text>
+        </Stack>
+        <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8} minW="400px">
+          <form onSubmit={handleSubmit(submitHandler)}>
+            <Stack spacing={4}>
+              <FormControl id="username" isInvalid={errors?.username}>
+                <FormLabel>Username</FormLabel>
+                <Input {...register("username", { required: true })} type="text" />
+              </FormControl>
+              <FormControl id="email" isInvalid={errors?.email}>
+                <FormLabel>Email address</FormLabel>
+                <Input {...register("email", { required: true })} type="email" />
+              </FormControl>
+              <FormControl id="password" isInvalid={errors?.password}>
+                <FormLabel>Password</FormLabel>
+                <Input {...register("password", { required: true })} type="password" />
+              </FormControl>
+              <FormControl id="password_confirm" isInvalid={errors?.password_confirm}>
+                <FormLabel>Password Confirm</FormLabel>
+                <Input
+                  {...register("password_confirm", {
+                    required: true,
+                    validate: value => value === getValues("password"),
+                  })}
+                  type="password"
+                />
+                {getValues("password") !== getValues("password_confirm") ? (
+                  <FormErrorMessage>Passwords don't match</FormErrorMessage>
+                ) : null}
+              </FormControl>
+              <Stack spacing={10}>
+                <Button
+                  type="submit"
+                  bg={"blue.400"}
+                  color={"white"}
+                  _hover={{
+                    bg: "blue.500",
+                  }}
+                  isLoading={isSubmitting}
+                >
+                  Sign in
+                </Button>
+              </Stack>
+            </Stack>
+          </form>
         </Box>
-      </form>
-    </Box>
+        <Flex flexDirection="column" alignItems="center" mt={5}>
+          <Text fontSize={"lg"} mb={2}>
+            Already have an account ?
+          </Text>
+          <Text fontSize={"lg"} color={"blue.600"}>
+            <Link to="/app/sign-in">Sign In</Link>
+          </Text>
+        </Flex>
+      </Stack>
+    </Flex>
   );
 };
 

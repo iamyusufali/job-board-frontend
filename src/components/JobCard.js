@@ -6,6 +6,7 @@ const JobCard = ({ job, handleDelete, showDelete = false }) => {
     <Grid
       h="250px"
       w="60%"
+      bg="white"
       templateRows="repeat(2, 1fr)"
       templateColumns="repeat(5, 1fr)"
       mb={5}

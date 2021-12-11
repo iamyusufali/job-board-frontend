@@ -1,3 +1,10 @@
 module.exports = {
-  plugins: ["@chakra-ui/gatsby-plugin"],
-}
+  plugins: [
+    {
+      resolve: "@chakra-ui/gatsby-plugin",
+      options: {
+        resetCSS: true,
+      },
+    },
+  ],
+};

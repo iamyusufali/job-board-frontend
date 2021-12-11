@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
 import { GetPublic } from "../utils/apiRequester";
@@ -36,7 +36,13 @@ const JobListing = () => {
           dataLimit={2}
           fetchData={getJobs}
         />
-      ) : null}
+      ) : (
+        <Stack spacing={5} rounded={"lg"} boxShadow={"lg"} p={8} w="300px" mx="auto" mt={5}>
+          <Text textAlign="center" fontSize="lg" as="span" color="gray.500">
+            There are no jobs.
+          </Text>
+        </Stack>
+      )}
     </Box>
   );
 };

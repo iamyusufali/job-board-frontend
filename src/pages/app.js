@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Router } from "@reach/router";
-import { navigate } from "gatsby";
+import { Flex, Spinner, Text } from "@chakra-ui/react";
 
 import Layout from "../components/Layout";
 import SignIn from "../components/SignIn";
@@ -12,21 +12,24 @@ import PostJob from "../module/PostJob";
 import { useAuthContext } from "../context/AuthContext";
 
 const App = () => {
-  const { authData } = useAuthContext();
-
-  useEffect(() => {
-    authData.isLoggedIn && navigate("/app/my-jobs");
-  }, [authData.isLoggedIn]);
+  const { fetchingUser } = useAuthContext();
 
   return (
     <Layout>
-      <Router basepath="/app">
-        <SignIn path="/sign-in" />
-        <SignUp path="/sign-up" />
-        <JobListing path="/job-listing" />
-        <PrivateRoute path="/my-jobs" component={MyListing} />
-        <PrivateRoute path="/post-job" component={PostJob} />
-      </Router>
+      {fetchingUser ? (
+        <Flex rounded={"lg"} boxShadow={"lg"} p={8} w="300px" mx="auto" mt={20}>
+          <Spinner />
+          <Text ml={4}>Loading please wait...</Text>
+        </Flex>
+      ) : (
+        <Router basepath="/app">
+          <SignIn path="/sign-in" />
+          <SignUp path="/sign-up" />
+          <JobListing path="/job-listing" />
+          <PrivateRoute path="/my-jobs" component={MyListing} />
+          <PrivateRoute path="/post-job" component={PostJob} />
+        </Router>
+      )}
     </Layout>
   );
 };

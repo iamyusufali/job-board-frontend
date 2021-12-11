@@ -9,6 +9,7 @@ const AuthContext = createContext(null);
  *
  ***/
 const AuthProvider = ({ children }) => {
+  const [fetchingUser, setFetchingUser] = useState(true);
   const [authData, setAuthData] = useState({
     isLoggedIn: false,
     user: null,
@@ -24,10 +25,12 @@ const AuthProvider = ({ children }) => {
       const { result, error } = await Get("users/me");
       result && setAuthData({ isLoggedIn: true, user: result });
       error && setAuthData({ isLoggedIn: false, user: null });
+
+      setFetchingUser(false);
     })();
   }, []);
 
-  return <AuthContext.Provider value={{ authData, setAuthData }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ authData, setAuthData, fetchingUser }}>{children}</AuthContext.Provider>;
 };
 
 // Authentication Context provider hook

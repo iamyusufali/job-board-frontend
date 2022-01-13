@@ -22,7 +22,7 @@ import { toastConfig } from "../constants";
  *
  * Sign In Form Component
  *
- * **/
+ ***/
 const SignIn = () => {
   const {
     register,

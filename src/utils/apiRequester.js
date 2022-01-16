@@ -22,11 +22,7 @@ export const Post = async (path, json) => {
   const response = {};
 
   try {
-    const { data } = await axios.post(`${process.env.API_BASE_URL}/${path}`, json, {
-      headers: {
-        Authorization: `Bearer ${RequestBase.token}`,
-      },
-    });
+    const { data } = await axios.post(`${process.env.API_BASE_URL}/${path}`, json, { withCredentials: true });
 
     response.result = data;
   } catch (error) {
@@ -45,7 +41,7 @@ export const PostPublic = async (path, json) => {
   const response = {};
 
   try {
-    const { data } = await axios.post(`${process.env.API_BASE_URL}/${path}`, json);
+    const { data } = await axios.post(`${process.env.API_BASE_URL}/${path}`, json, { withCredentials: true });
 
     response.result = data;
   } catch (error) {
@@ -64,11 +60,7 @@ export const Get = async path => {
   const response = {};
 
   try {
-    const { data } = await axios.get(`${process.env.API_BASE_URL}/${path}`, {
-      headers: {
-        Authorization: `Bearer ${RequestBase.token}`,
-      },
-    });
+    const { data } = await axios.get(`${process.env.API_BASE_URL}/${path}`, { withCredentials: true });
 
     response.result = data;
   } catch (error) {
@@ -106,11 +98,7 @@ export const DELETE = async path => {
   const response = {};
 
   try {
-    const { data } = await axios.delete(`${process.env.API_BASE_URL}/${path}`, {
-      headers: {
-        Authorization: `Bearer ${RequestBase.token}`,
-      },
-    });
+    const { data } = await axios.delete(`${process.env.API_BASE_URL}/${path}`);
 
     response.result = data;
   } catch (error) {

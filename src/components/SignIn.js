@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../context/AuthContext";
-import { PostPublic, RequestBase } from "../utils/apiRequester";
+import { Post } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 
 /***
@@ -33,7 +33,7 @@ const SignIn = () => {
   const toast = useToast();
 
   const submitHandler = async formData => {
-    const { result, error } = await PostPublic("auth/local", formData);
+    const { result, error } = await Post("auth/local", formData);
 
     if (error) {
       return toast({
@@ -43,8 +43,6 @@ const SignIn = () => {
       });
     }
 
-    document.cookie = `auth-token=${result.jwt}`;
-    RequestBase.changeToken(result.jwt);
     setAuthData({ isLoggedIn: true, user: result.user });
     navigate("/app/my-jobs");
   };

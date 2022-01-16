@@ -1,8 +1,9 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { Flex, Center, Heading, Button } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useAuthContext } from "../context/AuthContext";
+import { Post } from "../utils/apiRequester";
 
 /***
  *
@@ -12,9 +13,15 @@ import { useAuthContext } from "../context/AuthContext";
 const Navbar = () => {
   const { authData, setAuthData } = useAuthContext();
 
-  const handleLogout = () => {
-    setAuthData({ isLoggedIn: false, info: null });
-    document.cookie = `auth-token=;expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
+  const handleLogout = async () => {
+    const { error } = await Post("logout");
+
+    if (error) {
+      console.error(error);
+    } else {
+      setAuthData({ isLoggedIn: false, info: null });
+      navigate("/sign-in");
+    }
   };
 
   return (
@@ -45,7 +52,7 @@ const Navbar = () => {
         </>
       ) : (
         <Center color="white" cursor="pointer" onClick={handleLogout}>
-          <Link to="/app/sign-in">
+          <Link to="/sign-in">
             <Button bg="white" color="gray.800">
               Sign In
             </Button>

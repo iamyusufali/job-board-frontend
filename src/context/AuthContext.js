@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { RequestBase, Get } from "../utils/apiRequester";
+import { Get } from "../utils/apiRequester";
 
 const AuthContext = createContext(null);
 
@@ -16,10 +16,6 @@ const AuthProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    // Set token for base requester class
-    const token = document.cookie.match(`(^|;)\\s*auth-token\\s*=\\s*([^;]+)`)?.pop() || "";
-    RequestBase.changeToken(token);
-
     // Check if user is logged in or not based on jwt token
     (async function () {
       const { result, error } = await Get("users/me");

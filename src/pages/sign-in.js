@@ -18,12 +18,7 @@ import { useAuthContext } from "../context/AuthContext";
 import { Post } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 
-/***
- *
- * Sign In Form Component
- *
- ***/
-const SignIn = () => {
+export default function SignIn() {
   const {
     register,
     handleSubmit,
@@ -95,6 +90,4 @@ const SignIn = () => {
       </Stack>
     </Flex>
   );
-};
-
-export default SignIn;
+}

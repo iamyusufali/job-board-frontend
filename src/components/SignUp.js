@@ -15,7 +15,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { PostPublic } from "../utils/apiRequester";
+import { Post } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -35,7 +35,7 @@ const SignUp = () => {
   const toast = useToast();
 
   const submitHandler = async formData => {
-    const { error } = await PostPublic("auth/local/register", formData);
+    const { error } = await Post("auth/local/register", formData);
 
     if (error) {
       return toast({
@@ -45,7 +45,7 @@ const SignUp = () => {
       });
     }
 
-    navigate("/app/sign-in");
+    navigate("/sign-in");
     toast({
       ...toastConfig,
       title: "Account created.",
@@ -113,7 +113,7 @@ const SignUp = () => {
             Already have an account ?
           </Text>
           <Text fontSize={"lg"} color={"blue.600"}>
-            <Link to="/app/sign-in">Sign In</Link>
+            <Link to="/sign-in">Sign In</Link>
           </Text>
         </Flex>
       </Stack>

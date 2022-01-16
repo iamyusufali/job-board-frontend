@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Heading, Stack, Text } from "@chakra-ui/react";
 import JobCard from "../components/JobCard";
 import Pagination from "../components/Pagination";
-import { GetPublic } from "../utils/apiRequester";
+import { Get } from "../utils/apiRequester";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_JOBS } from "../graphql/queries";
 
@@ -15,9 +15,11 @@ const JobListing = () => {
   const [totalJobs, setTotalJobs] = useState(0);
   const { loading, error, data, refetch } = useQuery(GET_ALL_JOBS, { variables: { start: 0, limit: 2 } });
 
+  console.log(data);
+
   useEffect(() => {
     (async function () {
-      const { result } = await GetPublic("jobs/count");
+      const { result } = await Get("jobs/count");
       result && setTotalJobs(result);
     })();
   }, []);
@@ -27,7 +29,7 @@ const JobListing = () => {
       <Heading mb={5} textAlign="center">
         All Jobs
       </Heading>
-      {loading && <div>Loading Jobs...</div>}
+      {/* {loading && <div>Loading Jobs...</div>} */}
       {!loading && !error && data.jobs.length > 0 ? (
         <Pagination
           data={data.jobs}

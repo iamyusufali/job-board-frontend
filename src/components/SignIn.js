@@ -89,7 +89,7 @@ const SignIn = () => {
             Don't have an account ?
           </Text>
           <Text fontSize={"lg"} color={"blue.600"}>
-            <Link to="/app/sign-up">Sign Up</Link>
+            <Link to="/sign-up">Sign Up</Link>
           </Text>
         </Flex>
       </Stack>

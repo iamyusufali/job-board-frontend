@@ -20,7 +20,7 @@ const Navbar = () => {
       console.error(error);
     } else {
       setAuthData({ isLoggedIn: false, info: null });
-      navigate("/app/sign-in");
+      navigate("/sign-in");
     }
   };
 
@@ -52,7 +52,7 @@ const Navbar = () => {
         </>
       ) : (
         <Center color="white" cursor="pointer" onClick={handleLogout}>
-          <Link to="/app/sign-in">
+          <Link to="/sign-in">
             <Button bg="white" color="gray.800">
               Sign In
             </Button>

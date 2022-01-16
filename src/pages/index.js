@@ -35,7 +35,7 @@ export default function Home() {
               </Button>
             </Link>
             <Text mx={10}>Or</Text>
-            <Link to="/app/sign-in">
+            <Link to="/sign-in">
               <Button
                 bg="green.500"
                 rounded="full"

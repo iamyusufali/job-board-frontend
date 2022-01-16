@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { RequestBase, Get } from "../utils/apiRequester";
+import { Get } from "../utils/apiRequester";
 
 const AuthContext = createContext(null);
 

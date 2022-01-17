@@ -1,11 +1,11 @@
 import React from "react";
-import fetch from "isomorphic-fetch";
-import { ApolloClient, ApolloProvider as Provider, InMemoryCache } from "@apollo/client";
+import { ApolloClient, ApolloProvider as Provider, InMemoryCache, createHttpLink } from "@apollo/client";
 
-const client = new ApolloClient({
+const link = createHttpLink({
   uri: process.env.GRAPHQL_URL,
-  fetch: fetch,
-  cache: new InMemoryCache(),
+  credentials: "include",
 });
+
+const client = new ApolloClient({ cache: new InMemoryCache(), link });
 
 export const ApolloProvider = ({ children }) => <Provider client={client}>{children}</Provider>;

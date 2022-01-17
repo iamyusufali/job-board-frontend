@@ -14,8 +14,9 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../graphql/mutations";
 import { useAuthContext } from "../context/AuthContext";
-import { Post } from "../utils/apiRequester";
 import { toastConfig } from "../constants";
 
 export default function SignIn() {
@@ -26,20 +27,21 @@ export default function SignIn() {
   } = useForm();
   const { authData, setAuthData } = useAuthContext();
   const toast = useToast();
+  const [login, { loading }] = useMutation(LOGIN_USER);
 
   const submitHandler = async formData => {
-    const { result, error } = await Post("auth/local", formData);
+    try {
+      const { data } = await login({ variables: { creds: formData } });
 
-    if (error) {
-      return toast({
+      setAuthData({ isLoggedIn: true, user: data.login.user });
+      navigate("/app/my-jobs");
+    } catch (error) {
+      toast({
         ...toastConfig,
         title: "Invalid email or password",
         status: "error",
       });
     }
-
-    setAuthData({ isLoggedIn: true, user: result.user });
-    navigate("/app/my-jobs");
   };
 
   useEffect(() => {
@@ -71,7 +73,7 @@ export default function SignIn() {
                   _hover={{
                     bg: "blue.500",
                   }}
-                  isLoading={isSubmitting}
+                  isLoading={loading || isSubmitting}
                 >
                   Sign in
                 </Button>
